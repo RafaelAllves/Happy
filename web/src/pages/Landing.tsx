@@ -17,7 +17,7 @@ function Landing() {
           <strong>Belém</strong>
           <span>Pará</span>
         </div>
-        <Link to="" className="enter-app">
+        <Link to="/OrphanagesMap" className="enter-app">
           <FiArrowRight size={26} color="rgba(0, 0, 0, 0.6)"/>
         </Link>
       </div>
