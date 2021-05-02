@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+
+  web:
+    build:
+      context: ./web
+      dockerfile: ./Dockerfile.web
+    volumes:
+      - web_dist:/app/dist
+    networks:
+      - web_network
+
+networks:
+  web_network:
+
+volumes:
+  web_dist:

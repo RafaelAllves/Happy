@@ -1,0 +1,13 @@
+FROM node:12.12.0-alpine
+
+EXPOSE 3000
+
+WORKDIR /app
+
+RUN apk --no-cache add git
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
