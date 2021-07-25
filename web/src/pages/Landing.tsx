@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/pages/landing.scss';
 import logoImg from '../images/logo.svg';
 
-function Landing() {
+const Landing = () => {
   return (
     <div id="page-landing">
       <div className="content-wrapper">
