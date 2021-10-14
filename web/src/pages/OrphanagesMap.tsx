@@ -32,13 +32,13 @@ function OrphanagesMap() {
       </aside>
       <Map 
         zoom={15}
-        center={[-1.4365936, -48.4670979]}
+        center={[-1.361876, -48.4042172]}
         className="map"
       >
         {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" /> */}
         <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
         <Marker 
-          position={[-1.4365936, -48.4670979]}
+          position={[-1.361876, -48.4042172]}
           icon={mapIcon}
         >
           <Popup closeButton={false} minWidth={240} maxHeight={240} className="map-popup">
@@ -49,7 +49,7 @@ function OrphanagesMap() {
           </Popup>
         </Marker>
       </Map>
-      <Link to="" className="create-orphanage">
+      <Link to="/orphanages/create" className="create-orphanage">
         <FiPlus size={32} color="#ffffff"/>
       </Link>
     </div>
