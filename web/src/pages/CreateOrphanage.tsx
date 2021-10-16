@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { FiPlus } from "react-icons/fi";
 
@@ -12,6 +12,13 @@ export default function CreateOrphanage() {
 
   const [position, setPosition] =  useState({ latitude: 0, longitude: 0})
   const [initialPosition, setInitialPosition] =  useState({ lat: 0, lng: 0})
+  
+  const [name, setName] =  useState('')
+  const [about, setAbout] =  useState('')
+  const [instructions, setInstructions] =  useState('')
+  const [opening_hours, setOpeningHours] =  useState('')
+  const [open_on_weekends, setOpenOnWeekends] =  useState(true)
+
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -26,13 +33,31 @@ export default function CreateOrphanage() {
     setPosition({ latitude: lat, longitude: lng})
   }
 
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+
+    const { latitude, longitude } = position;
+
+    const data = {
+      name,
+      about,
+      instructions,
+      opening_hours,
+      open_on_weekends,
+      latitude,
+      longitude
+    } 
+
+    console.log(data);
+  }
+
   return (
     <div id="page-create-orphanage">
 
       <Sidebar/>
 
       <main>
-        <form className="create-orphanage-form">
+        <form className="create-orphanage-form" onSubmit={handleSubmit}>
           <fieldset>
             <legend>Dados</legend>
 
@@ -55,12 +80,12 @@ export default function CreateOrphanage() {
 
             <div className="input-block">
               <label htmlFor="name">Nome</label>
-              <input id="name" />
+              <input id="name" value={name} onChange={ event => setName(event.target.value)}/>
             </div>
 
             <div className="input-block">
               <label htmlFor="about">Sobre <span>Máximo de 300 caracteres</span></label>
-              <textarea id="name" maxLength={300} />
+              <textarea id="name" maxLength={300} value={about} onChange={ event => setAbout(event.target.value)}/>
             </div>
 
             <div className="input-block">
@@ -70,7 +95,7 @@ export default function CreateOrphanage() {
 
               </div>
 
-              <button className="new-image">
+              <button type="button"  className="new-image">
                 <FiPlus size={24} color="#15b6d6" />
               </button>
             </div>
@@ -81,20 +106,32 @@ export default function CreateOrphanage() {
 
             <div className="input-block">
               <label htmlFor="instructions">Instruções</label>
-              <textarea id="instructions" />
+              <textarea id="instructions" value={instructions} onChange={ event => setInstructions(event.target.value)}/>
             </div>
 
             <div className="input-block">
-              <label htmlFor="opening_hours">Nome</label>
-              <input id="opening_hours" />
+              <label htmlFor="opening_hours">Horario de Funcionamento</label>
+              <input id="opening_hours" value={opening_hours} onChange={ event => setOpeningHours(event.target.value)}/>
             </div>
 
             <div className="input-block">
               <label htmlFor="open_on_weekends">Atende fim de semana</label>
 
               <div className="button-select">
-                <button type="button" className="active">Sim</button>
-                <button type="button">Não</button>
+                <button 
+                  type="button" 
+                  className={open_on_weekends? "active" : ""}
+                  onClick={()=> setOpenOnWeekends(true)}
+                >
+                  Sim
+                </button>
+                <button 
+                  type="button" 
+                  className={open_on_weekends? "" : "active"}
+                  onClick={()=> setOpenOnWeekends(false)}
+                >
+                  Não
+                </button>
               </div>
             </div>
           </fieldset>
