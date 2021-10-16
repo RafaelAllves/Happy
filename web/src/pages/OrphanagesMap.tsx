@@ -8,32 +8,31 @@ import mapMarkerImg from '../images/map-marker.svg';
 import mapIcon from '../utils/mapIcon';
 import api from '../services/api';
 
+
+interface Image {
+  id: number;
+  url: string;
+}
+
+interface Orphanage {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+  about: string,
+  instructions: string,
+  opening_hours: string,
+  open_on_weekends: boolean,
+  images: Image[]
+}
+
 function OrphanagesMap() {
 
-  const [orphanages, setOrphanages] = useState<orphanage[]>([])
-
-  interface image {
-    id: number;
-    url: string;
-  }
-
-  interface orphanage {
-    id: number;
-    name: string;
-    latitude: number;
-    longitude: number;
-    about: string,
-    instructions: string,
-    opening_hours: string,
-    open_on_weekends: boolean,
-    images: image[]
-  }
+  const [orphanages, setOrphanages] = useState<Orphanage[]>([])
 
   useEffect(() => {
     api.get('/orphanages').then(response => {
-      setOrphanages(response.data as orphanage[])
-      console.log(response.data);
-      
+      setOrphanages(response.data as Orphanage[])
     })
   }, [])
 
