@@ -29,12 +29,21 @@ interface Orphanage {
 function OrphanagesMap() {
 
   const [orphanages, setOrphanages] = useState<Orphanage[]>([])
+  const [initialPosition, setInitialPosition] =  useState({ lat: 0, lng: 0})
 
   useEffect(() => {
     api.get('/orphanages').then(response => {
       setOrphanages(response.data as Orphanage[])
     })
   }, [])
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+
+      setInitialPosition({lat: latitude, lng: longitude});
+    })
+  }, []);
 
   return (
     <div id="page-map">
@@ -51,7 +60,7 @@ function OrphanagesMap() {
       </aside>
       <Map 
         zoom={15}
-        center={[-1.361876, -48.4042172]}
+        center={initialPosition}
         className="map"
       >
         {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" /> */}
