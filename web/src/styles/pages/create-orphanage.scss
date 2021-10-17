@@ -92,6 +92,34 @@ form.create-orphanage-form {
         align-items: center;
       }
 
+      .image-block {
+        position: relative;
+
+        .remove-image {
+          position: absolute;
+          width: 35px;
+          height: 35px;
+          left: calc(100% - 35px);
+          top: 0;
+          z-index: 10;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+  
+          /* Shapes / 01 */
+  
+          background: #FFFFFF;
+          color: red;
+          /* Back / Lines in white */
+  
+          border: 1px solid #D3E2E5;
+          box-sizing: border-box;
+          border-radius: 0px 17px;
+        }
+      }
+
+
       img {
         width: 100%;
         height: 96px;

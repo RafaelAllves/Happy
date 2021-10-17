@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Map, Marker, TileLayer } from 'react-leaflet';
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiX } from "react-icons/fi";
 
 import '../styles/pages/create-orphanage.scss';
 import Sidebar from "../components/Sidebar";
@@ -65,6 +65,16 @@ export default function CreateOrphanage() {
 
   }
 
+  function handleDeselectImage(index: number) {
+
+    const selectedImages = images
+    selectedImages.splice(index, 1)
+    setImages(selectedImages);
+
+    const selectedImagesPreview = selectedImages.map( image => URL.createObjectURL(image))
+    setPreviewImages(selectedImagesPreview)
+  }
+
   return (
     <div id="page-create-orphanage">
 
@@ -107,9 +117,14 @@ export default function CreateOrphanage() {
 
               <div className="images-container">
                 {
-                  previewimages.map(image => {
+                  previewimages.map((image, index) => {
                     return (
-                      <img key={image} src={image} alt={name} />
+                      <div key={index} className="image-block">
+                        <div className="remove-image" onClick={() => handleDeselectImage(index)}>
+                          <FiX size={20} color="#FF669D" />
+                        </div>
+                        <img src={image} alt={name} />
+                      </div>
                     )
                   })
                 }
