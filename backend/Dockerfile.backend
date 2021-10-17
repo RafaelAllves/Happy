@@ -1,0 +1,13 @@
+FROM node:12.12.0
+
+EXPOSE 3333
+
+WORKDIR /app
+
+RUN npm install -g ts-node-dev
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
