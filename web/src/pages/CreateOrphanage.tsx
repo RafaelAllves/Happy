@@ -57,7 +57,7 @@ export default function CreateOrphanage() {
 
     if (!event.target.files) return;
 
-    const selectedImages = Array.from(event.target.files)
+    const selectedImages = [...images, ...Array.from(event.target.files)]
     setImages(selectedImages);
 
     const selectedImagesPreview = selectedImages.map( image => URL.createObjectURL(image))
