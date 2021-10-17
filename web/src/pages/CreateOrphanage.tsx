@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { FiPlus } from "react-icons/fi";
 
@@ -18,6 +18,8 @@ export default function CreateOrphanage() {
   const [instructions, setInstructions] =  useState('')
   const [opening_hours, setOpeningHours] =  useState('')
   const [open_on_weekends, setOpenOnWeekends] =  useState(true)
+  const [images, setImages] =  useState<File[]>([])
+  const [previewimages, setPreviewImages] = useState<string[]>([])
 
 
   useEffect(() => {
@@ -49,6 +51,18 @@ export default function CreateOrphanage() {
     } 
 
     console.log(data);
+  }
+
+  function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
+
+    if (!event.target.files) return;
+
+    const selectedImages = Array.from(event.target.files)
+    setImages(selectedImages);
+
+    const selectedImagesPreview = selectedImages.map( image => URL.createObjectURL(image))
+    setPreviewImages(selectedImagesPreview)
+
   }
 
   return (
@@ -91,13 +105,19 @@ export default function CreateOrphanage() {
             <div className="input-block">
               <label htmlFor="images">Fotos</label>
 
-              <div className="uploaded-image">
-
+              <div className="images-container">
+                {
+                  previewimages.map(image => {
+                    return (
+                      <img key={image} src={image} alt={name} />
+                    )
+                  })
+                }
+                <label htmlFor="image[]" className="new-image">
+                  <FiPlus size={24} color="#15b6d6" />
+                </label>
               </div>
-
-              <button type="button"  className="new-image">
-                <FiPlus size={24} color="#15b6d6" />
-              </button>
+              <input type="file" multiple onChange={handleSelectImages} id="image[]" />
             </div>
           </fieldset>
 
