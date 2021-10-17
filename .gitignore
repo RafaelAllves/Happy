@@ -1,0 +1,12 @@
+npm-debug.log
+
+.env
+*.sqlite
+
+uploads/
+!uploads/.gitkeep
+
+node_modules
+
+.eslint
+tmp.js

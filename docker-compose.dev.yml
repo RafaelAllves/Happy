@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+
+  backend:
+    command: npm run dev
+    volumes:
+      - ./backend/src:/app/src
+    ports:
+      - "3333:3333"
+
+  web:
+    command: npm run start
+    volumes:
+      - ./web/src:/app/src
+    ports:
+      - "80:3000"
